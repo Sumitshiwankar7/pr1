@@ -1,0 +1,52 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+URL = "https://the-internet.herokuapp.com/login"
+
+# Open Chrome
+driver = webdriver.Chrome()
+wait = WebDriverWait(driver, 10)
+
+
+def get_message():
+    return wait.until(
+        EC.visibility_of_element_located((By.ID, "flash"))
+    ).text
+
+
+try:
+    # Test 1: Valid login
+    driver.get(URL)
+    driver.find_element(By.ID, "username").send_keys("tomsmith")
+    driver.find_element(By.ID, "password").send_keys("SuperSecretPassword!")
+    driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+    if "You logged into a secure area!" in get_message():
+        print("Test 1: PASS - Valid login")
+    else:
+        print("Test 1: FAIL - Valid login")
+
+    # Test 2: Invalid password
+    driver.delete_all_cookies()
+    driver.get(URL)
+    driver.find_element(By.ID, "username").send_keys("tomsmith")
+    driver.find_element(By.ID, "password").send_keys("wrong123")
+    driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+    if "Your password is invalid!" in get_message():
+        print("Test 2: PASS - Invalid password")
+    else:
+        print("Test 2: FAIL - Invalid password")
+
+    # Test 3: Empty fields
+    driver.delete_all_cookies()
+    driver.get(URL)
+    driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+    if "Your username is invalid!" in get_message():
+        print("Test 3: PASS - Empty fields")
+    else:
+        print("Test 3: FAIL - Empty fields")
+
+finally:
+    # Close browser
+    driver.quit()
