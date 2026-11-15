@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lab 4: GitHub Guide</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f6f7f9;--card:#fff;--ink:#1b2430;--mute:#5b6675;--line:#d9dee5;--acc:#1f6feb;--code:#0f1a2b;--codeink:#d6e4ff;--ok:#e3f5e8;--okink:#17612e;--ss:#fff1c9;--ssink:#6a4b00}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e131b;--card:#161d28;--ink:#e6ebf2;--mute:#9aa6b5;--line:#2a3443;--acc:#6aa5ff;--code:#0a0f17;--codeink:#cfe0ff;--ok:#12301d;--okink:#8fe0a8;--ss:#3a2f10;--ssink:#ffd980}}
+:root[data-theme="dark"]{--bg:#0e131b;--card:#161d28;--ink:#e6ebf2;--mute:#9aa6b5;--line:#2a3443;--acc:#6aa5ff;--code:#0a0f17;--codeink:#cfe0ff;--ok:#12301d;--okink:#8fe0a8;--ss:#3a2f10;--ssink:#ffd980}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:1.7rem;line-height:1.2;margin:8px 0 6px}
+.lead{color:var(--mute);margin:0 0 16px}
+.user{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:18px}
+.user label{display:block;font-weight:600;margin-bottom:6px}
+.user input{width:100%;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.user small{color:var(--mute)}
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 16px}
+h2{font-size:1.15rem;margin:0 0 10px;color:var(--acc)}
+ol{margin:0;padding-left:1.3rem}
+li{margin:0 0 12px}
+.code{position:relative;margin:8px 0}
+pre{margin:0;background:var(--code);color:var(--codeink);border-radius:8px;padding:12px 76px 12px 12px;overflow-x:auto;font:13.5px/1.55 ui-monospace,SFMono-Regular,Consolas,Menlo,monospace;white-space:pre}
+button.copy{position:absolute;top:7px;right:7px;font:600 12px system-ui,sans-serif;padding:6px 10px;border-radius:6px;border:1px solid #3b4b66;background:#1c2a42;color:#dbe7ff;cursor:pointer}
+button.copy:hover{background:#27395a}
+button.copy.done{background:#1f7a3d;border-color:#1f7a3d;color:#fff}
+button:focus-visible,input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.exp,.ss{border-radius:8px;padding:8px 11px;margin:8px 0;font-size:.93rem}
+.exp{background:var(--ok);color:var(--okink)}
+.ss{background:var(--ss);color:var(--ssink)}
+.note{color:var(--mute);font-size:.93rem}
+code.i{font:.9em ui-monospace,Consolas,monospace;background:var(--bg);border:1px solid var(--line);padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body>
+<main>
+<h1>Lab 4: GitHub step by step</h1>
+<p class="lead">Tap <b>Copy</b> on any box, then paste it into Git Bash (right-click &rarr; Paste, or Shift+Insert), VS Code, or GitHub. Green boxes show what you should see. Yellow boxes mark screenshots for your report.</p>
+<div class="user">
+  <label for="u">Your GitHub username</label>
+  <input id="u" placeholder="e.g. atharvkhaire18" autocomplete="off" autocapitalize="off" spellcheck="false">
+  <small>Type it once. Every command below updates automatically.</small>
+</div>
+<div id="root"></div>
+</main>
+<script>
+var U='YOUR-USERNAME';
+var parts=[
+{h:'Part 1: Create a GitHub account',s:[
+ {t:'Open <b>github.com</b> and click <b>Sign up</b> (top right). Enter email, password and username, then verify the email code.'},
+ {ss:'Sign-up page, or your logged-in GitHub home page.'},
+ {e:'Your profile picture appears at the top right after you sign in.'}]},
+{h:'Part 2: Create the repository',s:[
+ {t:'Click the <b>+</b> icon (top right) &rarr; <b>New repository</b>.'},
+ {t:'Repository name (copy and paste):'},{c:'SE-Lab'},
+ {t:'Choose <b>Public</b>, switch <b>Add README file</b> to <b>On</b>, then click <b>Create repository</b>.'},
+ {ss:'The &ldquo;Create a new repository&rdquo; page filled in, before you click Create.'},
+ {e:'A repo page at github.com/YOU/SE-Lab with one file, README.md.'}]},
+{h:'Part 3: Clone the repository',s:[
+ {t:'On the repo page click green <b>&lt;&gt; Code</b> &rarr; <b>HTTPS</b> &rarr; copy icon. Then on your PC open the folder you want (e.g. Desktop), right-click empty space &rarr; <b>Show more options</b> &rarr; <b>Git Bash Here</b>.'},
+ {t:'Check Git is installed:'},{c:'git --version'},
+ {e:'git version 2.xx.x.windows.1 (any number is fine).'},
+ {ss:'Git Bash showing the git version.'},
+ {t:'Clone the repo and go inside it:'},{c:'git clone https://github.com/'+U+'/SE-Lab.git\ncd SE-Lab',u:1},
+ {e:'&ldquo;Cloning into &lsquo;SE-Lab&rsquo;&hellip;&rdquo; then &ldquo;Receiving objects: 100% (3/3), done.&rdquo; After <code class="i">cd</code>, the prompt ends with <b>(main)</b>.'},
+ {ss:'Clone output in Git Bash.'}]},
+{h:'Part 4: Add and commit a file',s:[
+ {t:'Create the file and open VS Code here:'},{c:'touch index.html\ncode .'},
+ {t:'<b>If <code class="i">code .</code> fails:</b> open VS Code &rarr; File &rarr; Open Folder &rarr; pick SE-Lab.',n:1},
+ {t:'Click <b>index.html</b> in VS Code, type this line, press <b>Ctrl+S</b>:'},{c:'<h1>Software Engineering Lab</h1>'},
+ {ss:'VS Code showing index.html with the code.'},
+ {t:'Back in Git Bash, check, stage and commit:'},{c:'git status\ngit add index.html\ngit commit -m "Added homepage"'},
+ {e:'status lists index.html in red as untracked. The commit prints <b>[main xxxxxxx] Added homepage</b> and <b>1 file changed, 1 insertion(+)</b>.'},
+ {t:'<b>Only if you see &ldquo;Author identity unknown&rdquo;:</b> run these with your own details, then repeat the commit.',n:1},
+ {c:'git config --global user.email "you@example.com"\ngit config --global user.name "Your Name"'},
+ {t:'Push to GitHub (a browser window may ask you to sign in &rarr; click <b>Authorize</b>):'},{c:'git push origin main'},
+ {e:'The last line ends with <b>main -&gt; main</b>.'},
+ {ss:'Git Bash with status, add, commit and push.'},
+ {ss:'GitHub repo page showing index.html and the commit &ldquo;Added homepage&rdquo;.'}]},
+{h:'Part 5: Create a branch',s:[
+ {t:'Create and switch to a new branch, then list branches:'},{c:'git checkout -b feature-login\ngit branch'},
+ {e:'&ldquo;Switched to a new branch &lsquo;feature-login&rsquo;&rdquo; and a list with <b>* feature-login</b> and main.'},
+ {t:'<b>If it says the branch already exists</b>, use this instead:',n:1},{c:'git checkout feature-login'},
+ {t:'Create the login file and open VS Code:'},{c:'touch login.html\ncode .'},
+ {t:'Open <b>login.html</b>, paste these two lines, press <b>Ctrl+S</b>:'},{c:'<h2>Login Page</h2>\n<button>Login</button>'},
+ {ss:'VS Code showing login.html. The bottom-left corner should say feature-login.'},
+ {t:'Commit and push the branch:'},{c:'git add .\ngit commit -m "Added login page"\ngit push origin feature-login'},
+ {e:'<b>[feature-login xxxxxxx] Added login page</b>, then <b>* [new branch] feature-login -&gt; feature-login</b>.'},
+ {ss:'Git Bash showing the branch commit and push.'},
+ {t:'On GitHub open <b>Code &rarr; Branches</b>.'},
+ {e:'Two branches: main (Default) and feature-login (1 commit ahead).'},
+ {ss:'GitHub Branches page.'}]},
+{h:'Part 6: Open a pull request',s:[
+ {t:'On your repo page click the yellow banner <b>Compare &amp; pull request</b>. (No banner? Pull requests tab &rarr; New pull request &rarr; base: main, compare: feature-login.)'},
+ {t:'Title:'},{c:'Added login page'},
+ {t:'Description (optional):'},{c:'Added a simple login page with a Login button.'},
+ {t:'Click <b>Create pull request</b>.'},
+ {e:'A green &ldquo;Able to merge&rdquo; message at the top.'},
+ {ss:'The pull request page with the title filled in.'}]},
+{h:'Part 7: Merge the pull request',s:[
+ {t:'Click <b>Merge pull request</b>, then <b>Confirm merge</b>. Optionally click <b>Delete branch</b>.'},
+ {e:'A purple <b>Merged</b> badge and &ldquo;Pull request successfully merged and closed&rdquo;.'},
+ {ss:'The merged pull request page.'}]},
+{h:'Part 8: Update your local repository',s:[
+ {t:'Go back to Git Bash:'},{c:'git checkout main\ngit pull origin main\nls'},
+ {e:'The pull shows <b>login.html | 2 ++</b>, and <code class="i">ls</code> lists README.md, index.html and <b>login.html</b>.'},
+ {ss:'Git Bash after the pull, with login.html listed.'},
+ {t:'Optional: delete the branch.'},{c:'git branch -d feature-login\ngit push origin --delete feature-login'},
+ {t:'If you already clicked Delete branch on GitHub, the second command says &ldquo;remote ref does not exist&rdquo;. That is fine.',n:1},
+ {ss:'GitHub Branches page showing only main.'}]},
+{h:'Part 9: Issue tracking',s:[
+ {t:'On your repo click <b>Issues</b> &rarr; <b>New issue</b>. Title:'},{c:'Login page not responsive'},
+ {t:'Description:'},{c:'The login button overlaps on smaller screen sizes.\nThe page layout is not responsive on mobile devices.\n\nNeed to fix the CSS to make it responsive.'},
+ {t:'Click <b>Submit new issue</b>.'},
+ {e:'The issue page shows <b>#1</b> with a green Open badge.'},
+ {ss:'The &ldquo;Create new issue&rdquo; page filled in.'},
+ {t:'Close it: click <b>Close issue</b> on GitHub. Or edit a file, then commit with the issue number so GitHub closes it after merge:'},
+ {c:'git commit -am "Fixed login responsiveness #1"\ngit push'},
+ {t:'<b>&ldquo;nothing to commit&rdquo;?</b> You have not changed a file. Just click Close issue on GitHub.',n:1},
+ {e:'A purple <b>Closed</b> badge under the issue title.'},
+ {ss:'The closed issue page.'}]}
+];
+var root=document.getElementById('root'),pres=[],n=0;
+function copy(text,b){
+  function ok(){b.textContent='Copied';b.classList.add('done');setTimeout(function(){b.textContent='Copy';b.classList.remove('done')},1500)}
+  function fb(){var t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();try{document.execCommand('copy');ok()}catch(e){b.textContent='Select & copy'}document.body.removeChild(t)}
+  try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(ok,fb)}else{fb()}}catch(e){fb()}
+}
+parts.forEach(function(p){
+  var sec=document.createElement('section'),h=document.createElement('h2');h.textContent=p.h;sec.appendChild(h);
+  var ol=document.createElement('ol'),li=null;
+  p.s.forEach(function(x){
+    if(x.t&&!x.n){li=document.createElement('li');li.innerHTML=x.t;ol.appendChild(li);return}
+    if(!li){li=document.createElement('li');ol.appendChild(li)}
+    var d;
+    if(x.t){d=document.createElement('div');d.className='note';d.innerHTML=x.t}
+    else if(x.e){d=document.createElement('div');d.className='exp';d.innerHTML='<b>You should see:</b> '+x.e}
+    else if(x.ss){n++;d=document.createElement('div');d.className='ss';d.innerHTML='<b>Screenshot '+n+':</b> '+x.ss}
+    else{
+      d=document.createElement('div');d.className='code';
+      var pre=document.createElement('pre');pre.textContent=x.c;
+      var b=document.createElement('button');b.className='copy';b.type='button';b.textContent='Copy';
+      b.setAttribute('aria-label','Copy to clipboard');
+      b.onclick=(function(pr,bt){return function(){copy(pr.textContent,bt)}})(pre,b);
+      d.appendChild(pre);d.appendChild(b);
+      if(x.u)pres.push({el:pre,tpl:x.c});
+    }
+    li.appendChild(d);
+  });
+  sec.appendChild(ol);root.appendChild(sec);
+});
+document.getElementById('u').addEventListener('input',function(e){
+  var v=e.target.value.trim()||U;
+  pres.forEach(function(p){p.el.textContent=p.tpl.split(U).join(v)});
+});
+</script>
+</body>
+</html>
